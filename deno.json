@@ -1,0 +1,23 @@
+{
+  "name": "@manufarfaro/chatty-grpc",
+  "exports": "./src/main.ts",
+  "description": "Some dummy chat app to test around grpc technology in deno.",
+  "license": "MIT",
+  "author": "Manu Farfaro <manu@farfaro.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufarfaro/chatty-grpc"
+  },
+  "tasks": {
+    "dev": "deno run --watch src/main.ts",
+    "compile": "deno compile --output=dist/chatty-grpc src/main.ts",
+    "compile:all": "deno task compile:linux && deno task compile:macos-intel && deno task compile:macos-arm && deno task compile:windows",
+    "compile:linux": "deno compile --output=dist/chatty-grpc-linux-x86_64 --target x86_64-unknown-linux-gnu src/main.ts",
+    "compile:macos-intel": "deno compile --output=dist/chatty-grpc-macos-x86_64 --target x86_64-apple-darwin src/main.ts",
+    "compile:macos-arm": "deno compile --output=dist/chatty-grpc-macos-aarch64 --target aarch64-apple-darwin src/main.ts",
+    "compile:windows": "deno compile --output=dist/chatty-grpc-windows-x86_64.exe --target x86_64-pc-windows-msvc src/main.ts"
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1"
+  }
+}

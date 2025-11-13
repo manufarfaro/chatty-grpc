@@ -1,0 +1,69 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+env:
+  APP_NAME: chatty-grpc
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: 2.5.6
+
+      - name: Generate release name
+        id: release_name
+        run: |
+          TIMESTAMP=$(date -u +"%Y%m%d-%H%M")
+          RELEASE_NAME="${TIMESTAMP}-${{ env.APP_NAME }}"
+          echo "RELEASE_NAME=${RELEASE_NAME}" >> $GITHUB_OUTPUT
+          echo "TIMESTAMP=${TIMESTAMP}" >> $GITHUB_OUTPUT
+
+      - name: Compile for Linux
+        run: deno compile --output=dist/${{ env.APP_NAME }}-linux-x86_64 --target x86_64-unknown-linux-gnu src/main.ts
+
+      - name: Compile for macOS (Intel)
+        run: deno compile --output=dist/${{ env.APP_NAME }}-macos-x86_64 --target x86_64-apple-darwin src/main.ts
+
+      - name: Compile for macOS (Apple Silicon)
+        run: deno compile --output=dist/${{ env.APP_NAME }}-macos-aarch64 --target aarch64-apple-darwin src/main.ts
+
+      - name: Compile for Windows
+        run: deno compile --output=dist/${{ env.APP_NAME }}-windows-x86_64.exe --target x86_64-pc-windows-msvc src/main.ts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/${{ env.APP_NAME }}-linux-x86_64
+            dist/${{ env.APP_NAME }}-macos-x86_64
+            dist/${{ env.APP_NAME }}-macos-aarch64
+            dist/${{ env.APP_NAME }}-windows-x86_64.exe
+          tag_name: ${{ steps.release_name.outputs.RELEASE_NAME }}
+          name: Release ${{ steps.release_name.outputs.TIMESTAMP }}
+          body: |
+            Automated release from commit ${{ github.sha }}
+
+            **Download the appropriate binary for your platform:**
+            - Linux: `${{ env.APP_NAME }}-linux-x86_64`
+            - macOS (Intel): `${{ env.APP_NAME }}-macos-x86_64`
+            - macOS (Apple Silicon): `${{ env.APP_NAME }}-macos-aarch64`
+            - Windows: `${{ env.APP_NAME }}-windows-x86_64.exe`
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
