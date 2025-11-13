@@ -14,7 +14,7 @@ env:
 jobs:
   release:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -56,7 +56,7 @@ jobs:
           name: Release ${{ steps.release_name.outputs.TIMESTAMP }}
           body: |
             Automated release from commit ${{ github.sha }}
-            
+
             **Download the appropriate binary for your platform:**
             - Linux: `${{ env.APP_NAME }}-linux-x86_64`
             - macOS (Intel): `${{ env.APP_NAME }}-macos-x86_64`
@@ -67,4 +67,3 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-

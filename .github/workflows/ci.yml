@@ -30,4 +30,3 @@ jobs:
 
       - name: Compile
         run: deno task compile
-
