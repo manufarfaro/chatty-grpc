@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package chat.v1;
+
+service ChatService {
+  // Ping the server to check if it's alive.
+  rpc Ping(PingRequest) returns (PingResponse);
+  // Listen for new messages from the server.
+  rpc Listen(ConnectRequest) returns (stream ChatMessage);
+  // Send logs to the server.
+  rpc SendLogs(stream LogEntry) returns (UploadSummary);
+  // Chat with the server.
+  rpc Chat(stream ChatMessage) returns (stream ChatMessage);
+}
+
+message PingRequest {
+  string message = 1;
+}
+
+message PingResponse {
+  string message = 1;
+}
+
+message ConnectRequest {
+  string user_id = 1;
+}
+
+message LogEntry {
+  string user_id = 1;
+  string message = 2;
+  string timestamp = 3;
+}
+
+message UploadSummary {
+  string user_id = 1;
+  string message = 2;
+  string timestamp = 3;
+}
+
+message ChatMessage {
+  string user_id = 1;
+  string message = 2;
+  string timestamp = 3;
+}
