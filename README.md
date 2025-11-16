@@ -19,11 +19,15 @@ deno task dev
 ## Testing
 
 ```bash
-# Run tests
-deno test
+# Run all tests
+deno task test
 
 # Run tests with coverage
-deno test --coverage
+deno task test:coverage
+
+
+# Run specific test file
+deno test src/services/chat/ping_test.ts
 ```
 
 ## Build
@@ -35,6 +39,17 @@ deno task compile
 # Compile for all platforms
 deno task compile:all
 ```
+
+## CI/CD
+
+Tests run automatically in GitHub Actions:
+
+- Type checking
+- Linting (format check)
+- Unit tests with coverage
+- Coverage uploaded to Codecov
+
+See `.github/workflows/ci.yml` for details.
 
 ## Development
 

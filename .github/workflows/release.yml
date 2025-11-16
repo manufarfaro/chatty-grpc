@@ -24,6 +24,14 @@ jobs:
         with:
           deno-version: 2.5.6
 
+      - name: Setup Buf
+        uses: bufbuild/buf-setup-action@v1
+        with:
+          github_token: ${{ github.token }}
+
+      - name: Generate proto files
+        run: deno task generate:proto
+
       - name: Generate release name
         id: release_name
         run: |

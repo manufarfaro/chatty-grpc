@@ -1,6 +1,9 @@
 # Deno
 .deno/
 
+# Generated proto files
+src/proto/
+
 # Environment variables
 .env
 .env.*
@@ -13,6 +16,7 @@ logs/
 # Coverage reports
 coverage/
 .lcov
+*.lcov
 
 # OS generated files
 .DS_Store

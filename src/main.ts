@@ -1,8 +1,13 @@
-export function add(a: number, b: number): number {
-  return a + b;
+import { startServer } from "./server.ts";
+
+const DEFAULT_PORT = 8080;
+
+// Run the application programmatically (used by tests and CLI)
+export function runApp(port: number = DEFAULT_PORT) {
+  return startServer(port);
 }
 
-// Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
+// Entry point when executed via `deno run src/main.ts`
 if (import.meta.main) {
-  console.log("Add 2 + 3 =", add(2, 3));
+  runApp();
 }
