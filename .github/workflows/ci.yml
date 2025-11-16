@@ -19,14 +19,14 @@ jobs:
         with:
           deno-version: 2.5.6
 
+      - name: Generate proto files
+        run: deno task generate:proto
+
       - name: Check formatting
         run: deno fmt --check
 
       - name: Type check
         run: deno check src/**/*.ts test/**/*.ts
-
-      - name: Generate proto files
-        run: deno task generate:proto
 
       - name: Run tests with coverage
         run: deno task test:coverage
