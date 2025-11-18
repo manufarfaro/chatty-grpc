@@ -14,10 +14,10 @@ Deno.test("server - starts and listens on port 8080", async () => {
   });
 
   const client = createClient(ChatService, transport);
-  const response = await client.ping({ message: "Integration test" });
+  const response = await client.ping({});
   assertEquals(
     response.message,
-    "Pong: Integration test",
+    "Pong",
     "Server should respond with pong",
   );
 
