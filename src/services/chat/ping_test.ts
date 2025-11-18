@@ -4,7 +4,7 @@ import type { PingRequest } from "../../proto/chat/v1/chat_pb.ts";
 
 Deno.test("ping service", async (t) => {
   await t.step("returns pong", async () => {
-    const request: PingRequest = {} as PingRequest; // empty request
+    const request: PingRequest = {} as PingRequest;
     const response = await ping(request);
     assertEquals(response.message, "Pong");
   });
