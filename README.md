@@ -8,8 +8,10 @@ Some dummy chat app to test around grpc technology in deno.
 
 ## Prerequisites
 
-- **Deno** 2.5.6+ ([Install Deno](https://deno.land/manual/getting_started/installation))
-- **Buf** (for proto generation) ([Install Buf](https://buf.build/docs/installation))
+- **Deno** 2.5.6+
+  ([Install Deno](https://deno.land/manual/getting_started/installation))
+- **Buf** (for proto generation)
+  ([Install Buf](https://buf.build/docs/installation))
 - **Docker** & **Docker Compose** (optional, for containerized deployment)
 - **Make** (optional, for convenience commands)
 
