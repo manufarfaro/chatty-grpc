@@ -6,6 +6,13 @@
 
 Some dummy chat app to test around grpc technology in deno.
 
+## Prerequisites
+
+- **Deno** 2.5.6+ ([Install Deno](https://deno.land/manual/getting_started/installation))
+- **Buf** (for proto generation) ([Install Buf](https://buf.build/docs/installation))
+- **Docker** & **Docker Compose** (optional, for containerized deployment)
+- **Make** (optional, for convenience commands)
+
 ## Quick Start
 
 ```bash
@@ -39,6 +46,23 @@ deno task compile
 # Compile for all platforms
 deno task compile:all
 ```
+
+## Docker Deployment
+
+Deploy using Make commands:
+
+```bash
+# Rebuild the image
+make build
+
+# Build and start the service
+make up
+
+# Stop the service
+make down
+```
+
+The service will be available at `http://localhost:8080`
 
 ## CI/CD
 
