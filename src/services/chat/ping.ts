@@ -1,8 +1,8 @@
 import type { PingRequest } from "../../proto/chat/v1/chat_pb.ts";
 
-export function ping(request: PingRequest) {
-  console.log("📥 Ping received:", request.message);
+export function ping(_request: PingRequest) {
+  console.log("📥 Ping received");
   return {
-    message: `Pong: ${request.message}`,
+    message: "Pong",
   };
 }

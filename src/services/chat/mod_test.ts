@@ -11,7 +11,7 @@ Deno.test("registerChatService - registers ChatService with router", async () =>
 
   const client = createClient(ChatService, transport);
 
-  const response = await client.ping({ message: "Test" });
+  const response = await client.ping({});
 
-  assertEquals(response.message, "Pong: Test");
+  assertEquals(response.message, "Pong");
 });
