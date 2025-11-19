@@ -1,5 +1,5 @@
-import { connectNodeAdapter } from "@connectrpc/connect-node";
 import { createServer, type Server } from "node:http";
+import { connectNodeAdapter } from "@connectrpc/connect-node";
 import { registerServices } from "./services/mod.ts";
 
 export function startServer(port: number): Server {

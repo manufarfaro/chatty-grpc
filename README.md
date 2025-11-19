@@ -34,10 +34,61 @@ deno task test
 # Run tests with coverage
 deno task test:coverage
 
-
 # Run specific test file
 deno test src/services/chat/ping_test.ts
 ```
+
+### Testing with buf curl
+
+Start the server first:
+```bash
+make build && make up
+```
+
+The server runs on `http://localhost:8080` by default.
+
+#### Ping (Unary RPC)
+
+```bash
+buf curl --schema contracts --data '{}' \
+  http://localhost:8080/chat.v1.ChatService/Ping
+```
+
+Expected response:
+```json
+{"message": "Pong"}
+```
+
+#### Listen (Server Streaming)
+
+```bash
+buf curl --schema contracts --data '{"userId": "manu"}' \
+  http://localhost:8080/chat.v1.ChatService/Listen
+```
+
+The connection stays open and streams messages as they arrive. To test, send a message via the Chat RPC in another terminal.
+
+#### SendLogs (Client Streaming)
+
+```bash
+buf curl --schema contracts \
+  --data '{"userId": "manu", "message": "Test log", "timestamp": "2024-01-01T10:00:00Z"}' \
+  http://localhost:8080/chat.v1.ChatService/SendLogs
+```
+
+**Note:** Client streaming requires sending multiple messages in a stream. For full testing, use a Connect client library. See `test/integration/server_test.ts` for examples.
+
+#### Chat (Bidirectional Streaming)
+
+Bidirectional streaming requires HTTP/2. Use the `--http2-prior-knowledge` flag:
+
+```bash
+buf curl --schema contracts \
+  --data '{"userId": "manu", "message": "Hello!", "timestamp": "2024-01-01T10:00:00Z"}' \
+  http://localhost:8080/chat.v1.ChatService/Chat
+```
+
+**Note:** For full bidirectional streaming (sending and receiving multiple messages), see `test/integration/server_test.ts` for Connect client examples.
 
 ## Build
 
