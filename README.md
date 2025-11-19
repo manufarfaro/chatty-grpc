@@ -41,6 +41,7 @@ deno test src/services/chat/ping_test.ts
 ### Testing with buf curl
 
 Start the server first:
+
 ```bash
 make build && make up
 ```
@@ -55,8 +56,9 @@ buf curl --schema contracts --data '{}' \
 ```
 
 Expected response:
+
 ```json
-{"message": "Pong"}
+{ "message": "Pong" }
 ```
 
 #### Listen (Server Streaming)
@@ -66,7 +68,8 @@ buf curl --schema contracts --data '{"userId": "manu"}' \
   http://localhost:8080/chat.v1.ChatService/Listen
 ```
 
-The connection stays open and streams messages as they arrive. To test, send a message via the Chat RPC in another terminal.
+The connection stays open and streams messages as they arrive. To test, send a
+message via the Chat RPC in another terminal.
 
 #### SendLogs (Client Streaming)
 
@@ -76,7 +79,9 @@ buf curl --schema contracts \
   http://localhost:8080/chat.v1.ChatService/SendLogs
 ```
 
-**Note:** Client streaming requires sending multiple messages in a stream. For full testing, use a Connect client library. See `test/integration/server_test.ts` for examples.
+**Note:** Client streaming requires sending multiple messages in a stream. For
+full testing, use a Connect client library. See
+`test/integration/server_test.ts` for examples.
 
 #### Chat (Bidirectional Streaming)
 
@@ -88,7 +93,8 @@ buf curl --schema contracts \
   http://localhost:8080/chat.v1.ChatService/Chat
 ```
 
-**Note:** For full bidirectional streaming (sending and receiving multiple messages), see `test/integration/server_test.ts` for Connect client examples.
+**Note:** For full bidirectional streaming (sending and receiving multiple
+messages), see `test/integration/server_test.ts` for Connect client examples.
 
 ## Build
 

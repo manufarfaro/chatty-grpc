@@ -53,7 +53,7 @@ Deno.test({
     }, 50);
 
     const stream = client.listen({ userId });
-    
+
     let receivedMessage = false;
 
     for await (const message of stream) {

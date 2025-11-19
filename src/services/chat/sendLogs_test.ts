@@ -9,7 +9,7 @@ Deno.test("sendLogs service", async (t) => {
     }
 
     const result = await sendLogs(emptyLogs());
-    
+
     assertEquals(result.userId, "system");
     assertEquals(result.message, "0 logs received");
   });
@@ -26,7 +26,7 @@ Deno.test("sendLogs service", async (t) => {
     }
 
     const result = await sendLogs(singleLog());
-    
+
     assertEquals(result.userId, "system");
     assertEquals(result.message, "1 logs received");
   });
@@ -57,9 +57,8 @@ Deno.test("sendLogs service", async (t) => {
     }
 
     const result = await sendLogs(multipleLogs());
-    
+
     assertEquals(result.userId, "system");
     assertEquals(result.message, "3 logs received");
   });
 });
-

@@ -1,7 +1,10 @@
-import type { ChatMessage, ConnectRequest } from "../../proto/chat/v1/chat_pb.ts";
+import type {
+  ChatMessage,
+  ConnectRequest,
+} from "../../proto/chat/v1/chat_pb.ts";
 import { chatEvents } from "../../events.ts";
 
-export async function *listen(request: ConnectRequest) {
+export async function* listen(request: ConnectRequest) {
   const userId = request.userId;
 
   if (userId === undefined) {
